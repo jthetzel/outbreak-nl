@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+import { reactReduxFirebase } from 'react-redux-firebase'
+import { firebaseConfig, config } from '../Config/Firebase'
 import Rehydration from '../Services/Rehydration'
 import ReduxPersist from '../Config/ReduxPersist'
 import Config from '../Config/DebugConfig'
@@ -22,6 +24,8 @@ export default (rootReducer, rootSaga, rootEpic) => {
   const sagaMiddleware = createSagaMiddleware({ sagaMonitor })
   middleware.push(sagaMiddleware)
 
+
+
   /* ------------- Epic Middleware ------------- */
   // const epicMiddleware = createEpicMiddleware(rootEpic)
   // middleware.push(epicMiddleware)
@@ -29,6 +33,8 @@ export default (rootReducer, rootSaga, rootEpic) => {
   /* ------------- Assemble Middleware ------------- */
 
   enhancers.push(applyMiddleware(...middleware))
+
+  enhancers.push(reactReduxFirebase(firebaseConfig, config))
 
   // if Reactotron is enabled (default for __DEV__), we'll create the store through Reactotron
   const createAppropriateStore = Config.useReactotron ? console.tron.createStore : createStore

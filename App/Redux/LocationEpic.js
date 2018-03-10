@@ -16,7 +16,7 @@ const changeCenter = ({coords: { latitude, longitude }}) =>
 
 const getLocation = function (options) {
   return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentLocation(resolve, reject, options)
+    // navigator.geolocation.getCurrentLocation(resolve, reject, options)
   })
 }
 

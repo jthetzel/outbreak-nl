@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 import { persistReducer } from 'redux-persist'
+import { firebaseStateReducer } from 'react-redux-firebase'
 import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
 import ReduxPersist from '../Config/ReduxPersist'
-import { firebaseStateReducer } from 'react-redux-firebase'
 import { combineEpics } from 'redux-observable'
 // import { updateLocationEpic } from './LocatoinEpic'
-
+console.log('hi')
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
   firebase: firebaseStateReducer,
