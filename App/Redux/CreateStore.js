@@ -2,11 +2,12 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import Rehydration from '../Services/Rehydration'
 import ReduxPersist from '../Config/ReduxPersist'
 import Config from '../Config/DebugConfig'
+import { createEpicMiddleware } from 'redux-observable'
 import createSagaMiddleware from 'redux-saga'
 import ScreenTracking from './ScreenTrackingMiddleware'
 
 // creates the store
-export default (rootReducer, rootSaga) => {
+export default (rootReducer, rootSaga, rootEpic) => {
   /* ------------- Redux Configuration ------------- */
 
   const middleware = []
@@ -20,6 +21,10 @@ export default (rootReducer, rootSaga) => {
   const sagaMonitor = Config.useReactotron ? console.tron.createSagaMonitor() : null
   const sagaMiddleware = createSagaMiddleware({ sagaMonitor })
   middleware.push(sagaMiddleware)
+
+  /* ------------- Epic Middleware ------------- */
+  // const epicMiddleware = createEpicMiddleware(rootEpic)
+  // middleware.push(epicMiddleware)
 
   /* ------------- Assemble Middleware ------------- */
 

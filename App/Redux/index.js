@@ -3,15 +3,25 @@ import { persistReducer } from 'redux-persist'
 import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
 import ReduxPersist from '../Config/ReduxPersist'
+import { firebaseStateReducer } from 'react-redux-firebase'
+import { combineEpics } from 'redux-observable'
+// import { updateLocationEpic } from './LocatoinEpic'
 
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
+  firebase: firebaseStateReducer,
   nav: require('./NavigationRedux').reducer,
   github: require('./GithubRedux').reducer,
-  search: require('./SearchRedux').reducer
+  search: require('./SearchRedux').reducer,
+  location: require('./LocationRedux').reducer,
+  map: require('./MapRedux').reducer
 })
 
 export default () => {
+  // const rootEpic = combineEpics(
+  //   updateLocationEpic
+  // )
+
   let finalReducers = reducers
   // If rehydration is on use persistReducer otherwise default combineReducers
   if (ReduxPersist.active) {
