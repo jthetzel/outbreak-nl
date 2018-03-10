@@ -16,7 +16,7 @@ const changeCenter = ({coords: { latitude, longitude }}) =>
 
 const getLocation = function (options) {
   return new Promise(function (resolve, reject) {
-    // navigator.geolocation.getCurrentLocation(resolve, reject, options)
+    navigator.geolocation.getCurrentLocation(resolve, reject, options)
   })
 }
 
@@ -29,7 +29,7 @@ export const updateLocationEpic = (action$, store) =>
                getLocation())
              .do((location) => {
                const { coords: { latitude, longitude }, timestamp } = location
-               getFirebase().push('/locations', {latitude, longitude, timestamp})
+               // getFirebase().push('/locations', {latitude, longitude, timestamp})
              })
              .mergeMap((location) => ([
                locationReceived(location),
