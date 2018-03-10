@@ -30,7 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativeI18n(),
             new VectorIconsPackage(),
             new RNDeviceInfo(),
-            gnew RCTMGLPackage()
+            new RCTMGLPackage()
       );
     }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { ScrollView, Text, Image, View, TouchableOpacity } from 'react-native'
+import MapboxGL from '@mapbox/react-native-mapbox-gl';
 import { Images } from '../Themes'
 import ButtonBox from '../Components/ButtonBox'
 import { StackNavigator } from 'react-navigation'
@@ -8,53 +9,36 @@ import { StackNavigator } from 'react-navigation'
 // Styles
 import styles from './Styles/PresentationScreenStyles'
 
-class PresentationScreen extends React.Component {
+console.log('test')
+console.log(MapboxGL)
+MapboxGL.setAccessToken('pk.eyJ1IjoiYy1jb3JlIiwiYSI6ImNqZWl3bzI0MzBsNm4zM21lcjBsZXpvajUifQ.gmSOoJC8y-fk9rNz88-gTg')
+console.log(MapboxGL.getAccessToken())
+class MapScreen extends React.Component {
   openComponents = () => {
     // this.props.navigation.navigate('ComponentExamplesScreen')
   }
 
   render () {
     return (
-      <View style={styles.mainContainer}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
-        <TouchableOpacity onPress={this.props.screenProps.toggle} style={{
-          position: 'absolute',
-          paddingTop: 30,
-          paddingHorizontal: 10,
-          zIndex: 10
-        }}>
-          <Image source={Images.closeButton} />
-        </TouchableOpacity>
-        <ScrollView showsVerticalScrollIndicator={false} bounces={false} style={styles.container}>
-          <View style={styles.centered}>
-            <Image source={Images.igniteClear} style={styles.logo} />
-          </View>
-
-          <Text style={styles.sectionText}>
-            Default screens for development, debugging, and alpha testing
-            are available below.
-          </Text>
-          <View style={styles.buttonsContainer}>
-            <ButtonBox onPress={this.openComponents} style={styles.componentButton} image={Images.components} text='Components' />
-          </View>
-        </ScrollView>
-        <View style={styles.banner}>
-          <Text style={styles.bannerLabel}>Made with ❤️ by Infinite Red</Text>
-        </View>
+      <View style={{flex: 1}}>
+        <MapboxGL.MapView
+          ref={(c) => this._map = c}
+          style={{flex: 1}}>
+        </MapboxGL.MapView>
       </View>
     )
   }
 }
 
 export default StackNavigator({
-  PresentationScreen: {screen: PresentationScreen},
+  MapScreen: {screen: MapScreen},
   // ComponentExamplesScreen: {screen: ComponentExamplesScreen},
 }, {
   cardStyle: {
     opacity: 1,
     backgroundColor: '#3e243f'
   },
-  initialRouteName: 'PresentationScreen',
+  initialRouteName: 'MapScreen',
   headerMode: 'none',
   // Keeping this here for future when we can make
   navigationOptions: {
